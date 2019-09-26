@@ -1,0 +1,16 @@
+﻿@model Proizvod
+
+<div class="card bg-light mb-3">
+    <div class="card-header">
+        <h4>@Model.Naziv</h4>
+    </div>
+    <div class="card-body">
+        <h5>Cena: @Model.Cena</h5>
+        <h5>Opis: @Model.Opis</h5>
+
+        <form asp-action="DodajStavku" asp-controller="Korpa">
+            <input type="hidden" name="ProizvodId" value="@Model.ProizvodId" />
+            <button class="btn btn-success btn-sm">Dodaj u korpu</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+﻿@model Korpa
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td>Proizvod</td>
+                    <td>Kolicina</td>
+                    <td class="text-right">Cena</td>
+                    <td class="text-right">Vrednost stavke</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (StavkaKorpe st in Model.Stavke)
+                {
+                <tr>
+                    <td>@st.Proizvod.Naziv</td>
+                    <td>@st.Kolicina</td>
+                    <td class="text-right">@st.Proizvod.Cena</td>
+                    <td class="text-right">@(st.Proizvod.Cena * st.Kolicina)</td>
+                    <td>
+                        <form asp-action="ObrisiStavku" method="post">
+                            <input type="hidden" name="ProizvodId" value="@st.Proizvod.ProizvodId" />
+
+                            <button type="submit" class="btn btn-sm btn-danger"> Ukloni</button>
+
+                        </form>
+
+                    </td>
+                    <td>
+                        <form asp-action="PromeniStavku" method="post">
+                            <input type="hidden" name="ProizvodId" value="@st.Proizvod.ProizvodId" />
+
+                            <div class="input-group">
+                                <input type="number" name="kolicina" value="@st.Kolicina" class="form-control" />
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-sm btn-success"> Promeni</button>
+                                </span>
+                            </div>
+
+
+
+                        </form>
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Ukupno:</td>
+                    <td class="text-right">@Model.VrednostKorpe()</td>
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-7">
+        <a href="/Home/Index" class="btn btn-block btn-primary">Nastavi kupovinu</a>
+        <form asp-controller="Kupovina" class="mt-3">
+            <button class="btn btn-block btn-primary">Kupi</button>
+        </form>
+    </div>
+</div>

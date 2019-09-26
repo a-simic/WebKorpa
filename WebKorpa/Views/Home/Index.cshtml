@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="row">
+        <div class="col-md-4">
+            <a class="btn btn-block
+           @(ViewBag.id == 0 ? "btn-primary": "btn-light")"
+               asp-action="Index"
+               asp-controller="Home"
+               asp-route-id="0">
+                Svi proizvodi
+            </a>
+
+            @foreach (Kategorija k in ViewBag.Kategorije)
+            {
+                <a class="btn btn-block
+                 @(k.KategorijaId == ViewBag.id ? "btn-primary": "btn-light")"
+                   asp-action="Index"
+                   asp-controller="Home"
+                   asp-route-id="@k.KategorijaId">
+                    @k.Naziv
+                </a>
+            }
+        </div>
+
+        <div class="col-md-8">
+
+            @foreach (Proizvod p in Model)
+            {
+                @await Html.PartialAsync("_PrikaziProizvod", p)
+            }
+        </div>
+
+    </div>
+
